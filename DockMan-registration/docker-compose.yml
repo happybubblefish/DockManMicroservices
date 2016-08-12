@@ -1,0 +1,25 @@
+
+appregistration:
+  image: lincong/eureka-registration
+  ports:
+    - '1111:1111'
+appservice:
+  image: lincong/eureka-service
+  ports: 
+    - '1112:1112'
+  links:
+    - appregistration
+appclient:
+  image: lincong/eureka-client
+  ports:
+    - '1113:1113'
+  links:
+    - appregistration
+    - appservice
+mysql:
+  image: mysql:5.6
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=catalytics
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=root
